@@ -15,15 +15,9 @@ def translate_math_to_lean(english_text: str, api_key: str = None) -> str:
 
     client = OpenAI(api_key=client_key)
 
-    system_prompt = """You are an expert mathematician and a specialist in the interactive theorem prover Lean 4.
-Your goal is to translate English mathematical definitions exactly into valid, compilable Lean 4 code.
-Always use explicit type annotations for quantifiers (e.g., `∀ (x : α)` instead of `∀ x`) and explicitly typed set bindings.
-You may import Mathlib library modules if necessary (e.g., `import Mathlib.Data.Set.Basic`).
-Only output the raw Lean code in your response without ANY markdown formatting (no ```lean blocks)."""
+    system_prompt = "You are an AI assistant that translates English math into Lean 4 code. Only return raw Lean 4 code without any markdown formatting."
 
-    user_prompt = f"""Translate the following text from Kenneth Rosen's Discrete Mathematics into Lean 4 code:
-"{english_text}"
-"""
+    user_prompt = f"Translate the following text into Lean 4 code:\n'{english_text}'"
 
     response = client.chat.completions.create(
         model="gpt-4o",  # or "gpt-4-turbo" / "gpt-3.5-turbo"

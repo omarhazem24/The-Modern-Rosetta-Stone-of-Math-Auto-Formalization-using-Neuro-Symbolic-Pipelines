@@ -149,11 +149,12 @@ A generic Python command-line interface was constructed utilizing the \texttt{op
 The translation logic relies on rigorous \textit{prompt engineering} to ensure formatting. The system prompt embedded in the script explicitly forbids markdown formatting, thereby guaranteeing the LLM's response only yields raw valid syntax, ready for immediate compilation by the mathematical symbol compiler.
 
 \begin{figure}[H]
-    \centering
-    \IfFileExists{img/python_script_screenshot.png}{
-        \includegraphics[width=1.2\textwidth]{img/python_script_screenshot.png}
-    }{
-        \fbox{\begin{minipage}[c][4cm][c]{1.2\textwidth}\centering Image: Python Script Interface (Placeholder, place 'python\_script\_screenshot.png' in img/ folder)\end{minipage}}
+    \makebox[\textwidth][c]{%
+        \IfFileExists{img/python_script_screenshot.png}{
+            \includegraphics[width=1.2\textwidth]{img/python_script_screenshot.png}
+        }{
+            \fbox{\begin{minipage}[c][4cm][c]{1.2\textwidth}\centering Image: Python Script Interface (Placeholder, place 'python\_script\_screenshot.png' in img/ folder)\end{minipage}}
+        }%
     }
     \caption{Core Prompt Logic from \texttt{llm\_translator.py}.}
     \label{fig:python-script}

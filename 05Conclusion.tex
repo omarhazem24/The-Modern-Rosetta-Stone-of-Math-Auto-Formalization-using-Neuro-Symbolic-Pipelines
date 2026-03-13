@@ -4,15 +4,16 @@
 \section{Summary of Achievements}
 \label{sec:summary}
 
-This thesis has documented the initial phases of building a "Truth Scanner"\textemdash a neuro-symbolic pipeline for translating informal mathematical definitions into formally verified Lean 4 code. The work completed through Week 4 establishes a solid foundation for automated mathematical formalization:
+This thesis has documented the construction of the "Truth Scanner"\textemdash a neuro-symbolic pipeline for translating informal mathematical definitions into formally verified Lean 4 code. The work completed establishes a rigorous foundation for automated mathematical formalization:
 
 \begin{itemize}
     \item \textbf{Environment Mastery}: Successfully configured a complete Lean 4 development environment with Mathlib integration and completed the Natural Number Game to gain practical proficiency in tactic-based theorem proving.
-    \item \textbf{Systematic Selection}: Identified and taxonomized 10\textendash15 key definitions from Rosen's \textit{Discrete Mathematics}, mapping informal English to formal logical structures.
-    \item \textbf{Manual Baseline}: Created a gold standard set of manually formalized definitions that compile successfully in Lean 4, establishing baseline metrics for accuracy and completeness.
+    \item \textbf{Systematic Selection}: Identified and taxonomized key definitions from Rosen's \textit{Discrete Mathematics}, mapping informal English to formal logical structures.
+    \item \textbf{Manual Baseline}: Created a gold standard set of manually formalized definitions that compile successfully in Lean 4, establishing baseline metrics against which AI output can be judged.
+    \item \textbf{Automated API Pipeline}: Developed a successful Python interface utilizing the OpenAI API to systematically submit English mathematical queries to a Large Language Model and retrieve computationally typed Lean 4 source code.
 \end{itemize}
 
-These accomplishments demonstrate the feasibility of bridging the gap between textbook mathematics and machine-verifiable formal logic.
+These accomplishments successfully complete the first half of the neuro-symbolic architecture, bridging the gap between textbook mathematics and machine-verifiable code logic.
 
 \section{Contributions}
 \label{sec:contributions}
@@ -21,30 +22,22 @@ The primary contributions of this work include:
 
 \begin{enumerate}
     \item \textbf{Verified Formalization Baseline}: A collection of manually translated mathematical definitions from a standard undergraduate textbook, serving as ground truth for evaluating automated approaches.
-    \item \textbf{Translation Methodology}: A documented systematic process for decomposing informal mathematical language into Lean 4 dependent types.
-    \item \textbf{Challenge Analysis}: Identification of common pitfalls and ambiguities encountered when formalizing textbook mathematics, including implicit assumptions and notation mismatches.
+    \item \textbf{Translation Methodology}: A documented systematic process for decomposing informal mathematical language into Lean 4 dependent types using prompt engineering.
+    \item \textbf{Challenge Analysis}: Identification of common AI pitfalls and ambiguities encountered when formalizing mathematical logic, such as LLM "type inference" hallucinations.
 \end{enumerate}
 
 \section{Future Work}
 \label{sec:future-work}
 
-The next phases of this research will implement and evaluate the automated "Truth Scanner" pipeline:
-
-\subsection{Week 5: Pipeline Development (Phase I)}
-Develop a Python script using the OpenAI/Gemini API to automate Lean 4 translation:
-\begin{itemize}
-    \item Design prompts that take English mathematical text as input and output Lean 4 code snippets
-    \item Implement basic error handling and code generation
-    \item \textbf{Deliverable}: A script that takes English math text and outputs Lean code snippets
-\end{itemize}
+The next phases of this research will finalize the active runtime capabilities of the "Truth Scanner" pipeline:
 
 \subsection{Week 6\textendash7: The Repair Loop}
-Implement the self-correction mechanism that addresses LLM hallucinations:
+Implement the self-correction mechanism to solve LLM compilation failures autonomously:
 \begin{itemize}
-    \item Feed Lean compiler error messages back into the LLM prompt
-    \item Iterate until the code compiles or exceeds maximum retry attempts
-    \item Track success rates, iteration counts, and error patterns
-    \item \textbf{Deliverable}: An end-to-end pipeline with repair loop functionality and preliminary evaluation metrics
+    \item Feed Lean compiler error messages back into the LLM prompt.
+    \item Iterate the translation until the code safely compiles or exceeds maximum retry attempts.
+    \item Track success rates, iteration counts, and error reduction metrics.
+    \item \textbf{Deliverable}: An end-to-end pipeline with mathematical self-healing functionality.
 \end{itemize}
 
 \subsection{Week 8: Evaluation and Analysis}

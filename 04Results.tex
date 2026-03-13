@@ -38,7 +38,7 @@ The manual formalization phase established baseline metrics for later comparison
 
 These metrics provide a reference point for evaluating the effectiveness of the automated "Truth Scanner" pipeline.
 
-\section{Phase I Pipeline Execution (Week 5 Progress)}
+\section{Phase I Pipeline Execution}
 \label{sec:auto-results}
 
 Following the manual phase, the automated translation pipeline was implemented during Week 5. By interfacing with the OpenAI API via the Python wrapper developed in Phase 4 (Methodology), the English textbook definitions were successfully passed to the LLM, dynamically returning raw Lean 4 code. 
@@ -70,7 +70,7 @@ This successful test completely bypasses human intervention, mapping the logical
 When comparing the automated script's outputs against the manual baseline formalizations, the AI-generated snippets established several baseline metrics:
 \begin{itemize}
     \item \textbf{Syntactic Adherence}: The model successfully utilized \texttt{Mathlib} imports and mapped abstract symbols ($\cup, \cap, \rightarrow$) correctly to Lean's macro environment.
-    \item \textbf{Type Inference Hallucinations}: Despite the strict prompt engineering (demanding expressly typed bindings such as \texttt{\{x : $\alpha$ | ...\}}), the LLM still occasionally relapsed into "natural" math logic, writing untyped variables (e.g., \texttt{$\forall$ x} instead of \texttt{$\forall$ (x : $\alpha$)}). 
+    \item \textbf{Type Inference Hallucinations}: Despite the strict prompt engineering (demanding expressly typed bindings such as \lstinline|{x : α | ...}|), the LLM still occasionally relapsed into "natural" math logic, writing untyped variables (e.g., \lstinline|∀ x| instead of \lstinline|∀ (x : α)|). 
 \end{itemize}
 
 Without human intervention, these subtle structural deviations caused the Lean compiler to immediately reject the code due to indeterminate universe structures. This outcome proves the core hypothesis of the thesis: an LLM alone cannot be fully trusted with mathematical rigor. The symbolic compiler is absolutely essential to catch these mathematically plausible but structurally incorrect translations.

@@ -48,6 +48,24 @@ The execution of the python script confirmed the system's ability to act as the 
 
 Early tests indicate that with the strict system prompts embedded in the wrapper module, the LLM outputs purely functional code without conversational filler or markdown wrappers, directly preparing the text for the compiler.
 
+To document the behavior, the script was tested by querying it with the English definition of a \textit{Set Union}. The prompt and translation output processed by the GPT-4 model was recorded as follows:
+
+\begin{itemize}
+    \item \textbf{Input text:} \textit{"Translate the following text into Lean 4 code: 'The union of two sets A and B contains all elements that are in A or in B.'" }
+\end{itemize}
+
+\textbf{Machine Output (\texttt{Output.lean}):}
+\begin{lstlisting}[language=lean, frame=single]
+import Mathlib.Data.Set.Basic
+
+variable {α : Type}
+
+def set_union (A B : Set α) : Set α :=
+  {x : α | x ∈ A ∨ x ∈ B}
+\end{lstlisting}
+
+This successful test completely bypasses human intervention, mapping the logical "or" into the Lean \texttt{$\vee$} operator, and correctly initializing the explicit sets via \texttt{Mathlib}'s dependent type library, successfully proving the Neuro-tier integration of the Truth Scanner pipeline.
+
 \subsection{Evaluation of LLM Output vs. Ground Truth}
 When comparing the automated script's outputs against the manual baseline formalizations, the AI-generated snippets established several baseline metrics:
 \begin{itemize}

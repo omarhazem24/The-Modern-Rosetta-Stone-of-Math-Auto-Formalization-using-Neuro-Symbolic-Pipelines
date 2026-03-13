@@ -38,12 +38,24 @@ The manual formalization phase established baseline metrics for later comparison
 
 These metrics provide a reference point for evaluating the effectiveness of the automated "Truth Scanner" pipeline.
 
-\section{Automated Translation Outcomes}
+\section{Phase I Pipeline Execution (Week 5 Progress)}
 \label{sec:auto-results}
 
-Following the manual phase, the automated translation pipeline was implemented. By interfacing with the OpenAI API via the Python wrapper developed in Phase 4 (Methodology), the English textbook definitions were passed to the LLM. 
+Following the manual phase, the automated translation pipeline was implemented during Week 5. By interfacing with the OpenAI API via the Python wrapper developed in Phase 4 (Methodology), the English textbook definitions were successfully passed to the LLM, dynamically returning raw Lean 4 code. 
 
-Early tests indicate that with strict prompt engineering (demanding explicitly typed set bindings such as \texttt{\{x : $\alpha$ | ...\}}), the model frequently outputs valid syntax. However, without human intervention, subtle hallucinated logic can still cause the Lean compiler to reject the proofs. This validates the core theory of the thesis: an LLM alone is insufficient, and the symbolic compiler is necessary to catch mathematically plausible but structurally incorrect definitions.
+\subsection{Initial Translation Capabilities}
+The execution of the python script confirmed the system's ability to act as the linguistic parsing tier of the "Truth Scanner." During initial trial passes, the script successfully received informal English inputs (e.g., \textit{"The union of two sets A and B contains all elements that are in A or in B."}) and translated them directly into Lean 4 `.lean` files.
+
+Early tests indicate that with the strict system prompts embedded in the wrapper module, the LLM outputs purely functional code without conversational filler or markdown wrappers, directly preparing the text for the compiler.
+
+\subsection{Evaluation of LLM Output vs. Ground Truth}
+When comparing the automated script's outputs against the manual baseline formalizations, the AI-generated snippets established several baseline metrics:
+\begin{itemize}
+    \item \textbf{Syntactic Adherence}: The model successfully utilized \texttt{Mathlib} imports and mapped abstract symbols ($\cup, \cap, \rightarrow$) correctly to Lean's macro environment.
+    \item \textbf{Type Inference Hallucinations}: Despite the strict prompt engineering (demanding expressly typed bindings such as \texttt{\{x : $\alpha$ | ...\}}), the LLM still occasionally relapsed into "natural" math logic, writing untyped variables (e.g., \texttt{$\forall$ x} instead of \texttt{$\forall$ (x : $\alpha$)}). 
+\end{itemize}
+
+Without human intervention, these subtle structural deviations caused the Lean compiler to immediately reject the code due to indeterminate universe structures. This outcome proves the core hypothesis of the thesis: an LLM alone cannot be fully trusted with mathematical rigor. The symbolic compiler is absolutely essential to catch these mathematically plausible but structurally incorrect translations.
 
 \subsection{Compilation and Verification in Lean}
 Figure \ref{fig:lean-screenshot} illustrates the Lean 4 VS Code interface for a successful formalization run, showing the strict environment where these definitions are type-checked.

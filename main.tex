@@ -12,9 +12,17 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
 \usepackage{fancyhdr} % Better control over headers and footers
-\usepackage{listings}
+\usepackage{enumitem} % Professional list spacing
+\usepackage{titlesec} % Professional heading spacing
 \usepackage{graphicx}
 \usepackage{float} % Helps with precise image placement [H]
+
+% --- Professional Spacing Rules ---
+\setlist{itemsep=0.2em, topsep=0.4em, parsep=0.1em} % Compact lists
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt} % Reduce huge gaps above chapters
+\titlespacing*{\section}{0pt}{12pt}{6pt} % Control section spacing
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
 
 % --- Page Layout & Headers ---
 \pagestyle{fancy}
@@ -28,12 +36,6 @@
   \fancyfoot[C]{\thepage}
   \renewcommand{\headrulewidth}{0pt}
 }
-
-% --- FIX: Reduce Chapter Top Space ---
-\makeatletter
-\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{25\p@}}{}{}
-\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{25\p@}}{}{}
-\makeatother
 
 % --- NEW: Call Metadata File ---
 \input{metadata} % This pulls in all your variables
@@ -71,7 +73,8 @@
 % --- Main Body ---
 \pagestyle{fancy}
 \pagenumbering{arabic}
-\setlength\parskip{.5\baselineskip plus .2\baselineskip minus .4\baselineskip}
+\setlength\parskip{0.3em} % Professional smaller paragraph spacing
+\setlength\parindent{2em} % Standard indent for first lines
 
 % These files must exist in your sidebar with these exact names
 \include{01Introduction}

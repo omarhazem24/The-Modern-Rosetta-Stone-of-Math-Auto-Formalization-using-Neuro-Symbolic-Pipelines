@@ -1,0 +1,153 @@
+\chapter{Methodology}
+\label{chap:Three}
+
+This chapter outlines the systematic approach taken to build the "Truth Scanner"—a neuro-symbolic pipeline that translates informal English mathematical definitions and theorems from textbooks into formally verified Lean 4 code. The methodology follows a three-phase research plan: Learning, Implementation (Translation), and Evaluation (Repair Loop).
+
+\section{Overview of the Neuro-Symbolic Pipeline}
+\label{sec:pipeline-overview}
+
+The "Truth Scanner" operates as a Rosetta Stone for mathematics, bridging the gap between ambiguous human language and strict machine logic. The pipeline consists of two complementary components:
+
+\begin{itemize}
+    \item \textbf{Neuro Component (LLM)}: Handles the creative decomposition of informal English text into logical lemmas, leveraging Large Language Models to parse ambiguous natural language.
+    \item \textbf{Symbolic Component (Lean 4 Kernel)}: Provides rigorous verification through the Lean 4 theorem prover, acting as the definitive validation mechanism that eliminates hallucinations and ensures mathematical correctness.
+\end{itemize}
+
+This dual-system approach addresses the fundamental challenge of auto-formalization: converting subtle, context-dependent human mathematical prose into unambiguous, machine-checkable formal proofs.
+
+\begin{figure}[h]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=2cm]
+\node (input) [rectangle, draw, align=center, minimum width=2.5cm, minimum height=1cm] {Informal English\\(Textbook)};
+\node (process) [rectangle, rounded corners, draw, align=center, right=of input, minimum width=3.5cm, minimum height=1cm, fill=blue!10] {LLM Translation\\(Neuro)};
+\node (verify) [rectangle, draw, align=center, right=of process, minimum width=3.5cm, minimum height=1cm, fill=green!10] {Lean 4 Verifier\\(Symbolic)};
+\node (output) [rectangle, draw, align=center, right=of verify, minimum width=2.5cm, minimum height=1cm] {Verified Proof\\(Formal Logic)};
+
+\draw [->, thick] (input) -- (process);
+\draw [->, thick] (process) -- (verify);
+\draw [->, thick] (verify) -- (output);
+\end{tikzpicture}%
+}
+\caption{High-Level Architecture of the Neuro-Symbolic Pipeline}
+\label{fig:pipeline_arch}
+\end{figure}
+
+\section{Phase 1: Learning and Environment Setup}
+\label{sec:phase1-learning}
+
+\subsection{Lean 4 Environment Configuration}
+The first phase established the technical foundation required for formal verification work. The development environment consisted of:
+
+\begin{itemize}
+    \item \textbf{Lean 4 Theorem Prover}: Installation and configuration of the Lean 4 proof assistant with the latest stable release.
+    \item \textbf{VS Code Integration}: Setup of the Lean 4 VS Code extension for real-time proof state visualization and error feedback.
+    \item \textbf{Mathlib Library}: Integration of Mathlib, the community-driven library containing thousands of formalized mathematical theorems essential for undergraduate-level mathematics.
+\end{itemize}
+
+A "Hello World" proof was implemented to verify the environment functionality, ensuring the complete toolchain could compile and verify basic Lean 4 code.
+
+\subsection{The Natural Number Game}
+To gain practical proficiency in Lean 4's tactic-based proof system, the "Natural Number Game" was completed. This gamified tutorial systematically introduced:
+
+\begin{itemize}
+    \item \textbf{Fundamental Tactics}: Core proof techniques including \texttt{intro}, \texttt{exact}, \texttt{rw} (rewrite), and \texttt{induction}.
+    \item \textbf{Peano Axioms}: Building natural numbers from first principles using dependent type theory.
+    \item \textbf{Proof Construction}: Completing verified proof scripts for the Addition and Multiplication worlds, establishing intuition for formal reasoning in Lean's syntax.
+\end{itemize}
+
+This hands-on training was critical for understanding how Lean 4 transforms mathematical goals into verified states and how tactics manipulate the proof context.
+
+\section{Phase 2: Selection and Taxonomy}
+\label{sec:phase2-selection}
+
+\subsection{Source Material}
+The project targeted Kenneth H. Rosen's \textit{Discrete Mathematics and Its Applications}, a standard undergraduate textbook used globally. This text was selected because:
+
+\begin{itemize}
+    \item It represents typical informal mathematical presentation found in educational materials.
+    \item It contains precise definitions that are candidates for formalization.
+    \item Known ambiguities in textbooks of this type provide realistic test cases for the pipeline.
+\end{itemize}
+
+\subsection{Definition Selection Criteria}
+A systematic review identified 10–15 key definitions and theorems from Discrete Mathematics chapters covering:
+
+\begin{itemize}
+    \item Set theory operations (union, intersection, complement)
+    \item Relations and functions
+    \item Basic logic and propositional calculus
+    \item Graph theory fundamentals
+\end{itemize}
+
+Each selected definition was mapped to its corresponding logical components, creating a taxonomy document that served as the foundation for translation work. This mapping explicitly identified:
+
+\begin{itemize}
+    \item The English-language definition as stated in the textbook
+    \item The underlying logical structure (quantifiers, connectives, predicates)
+    \item Potential ambiguities or implicit assumptions
+    \item Expected Lean 4 type signatures
+\end{itemize}
+
+\section{Phase 3: Manual Formalization}
+\label{sec:phase3-manual}
+
+The third phase involved manually translating the selected definitions from English into verified Lean 4 code. This manual baseline serves multiple purposes:
+
+\begin{itemize}
+    \item Establishes ground truth for evaluating automated LLM translations
+    \item Identifies common translation patterns and challenges
+    \item Provides verified examples for training prompt engineering
+\end{itemize}
+
+\subsection{Translation Process}
+For each definition, the manual formalization followed a structured workflow:
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[node distance=1.5cm, auto]
+    \node (decomp) [rectangle, draw, align=center, fill=orange!10] {1. Decomposition\\(Identify Components)};
+    \node (type) [rectangle, draw, below=of decomp, align=center, fill=orange!10] {2. Type Design\\(Map to Mathlib)};
+    \node (impl) [rectangle, draw, below=of type, align=center, fill=orange!10] {3. Implementation\\(Write Lean Code)};
+    \node (verify) [rectangle, draw, below=of impl, align=center, fill=green!10] {4. Verification\\(Compile \& Check)};
+    
+    \draw [->, thick] (decomp) -- (type);
+    \draw [->, thick] (type) -- (impl);
+    \draw [->, thick] (impl) -- (verify);
+\end{tikzpicture}
+\caption{Manual Formalization Workflow for Textbook Definitions}
+\label{fig:manual_workflow}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Decomposition}: Break down the English definition into atomic logical statements.
+    \item \textbf{Type Signature Design}: Define appropriate Lean 4 types for mathematical objects (sets, functions, relations).
+    \item \textbf{Implementation}: Write the Lean 4 definition using dependent types and Mathlib constructs.
+    \item \textbf{Verification}: Ensure the Lean 4 compiler accepts the definition without errors.
+    \item \textbf{Documentation}: Add comments mapping Lean constructs back to English phrases.
+\end{enumerate}
+
+\subsection{Deliverables}
+The manual formalization phase produced:
+
+\begin{itemize}
+    \item A set of verified \texttt{.lean} files containing formalized definitions
+    \item A document analyzing translation challenges and patterns
+    \item Baseline metrics for code length and compilation success
+\end{itemize}
+
+These verified definitions serve as the gold standard for subsequent phases, where LLM-based automation will be evaluated against this manual baseline.
+
+\section{Phase 4: Automated Pipeline and LLM Prompting}
+\label{sec:phase4-pipeline}
+
+With a baseline manually established, the focus of the pipeline transitioned to constructing the automated translation software. The goal of this phase was to develop an autonomous interface between an external Large Language Model (e.g., OpenAI's GPT-4) and the local Lean 4 ecosystem.
+
+\subsection{Python Script Interface}
+A generic Python command-line interface was constructed utilizing the \texttt{openai} Python library. The tool abstracts the underlying HTTP networking to directly accept plain English informal math texts via argument parsing and output the corresponding formal verification logic as `.lean` source files.
+
+The translation logic relies on rigorous \textit{prompt engineering} to ensure formatting. The system prompt embedded in the script explicitly forbids markdown formatting, thereby guaranteeing the LLM's response only yields raw valid syntax, ready for immediate compilation by the mathematical symbol compiler.
+
+\subsection{Typing and Quantifier Enforcement}
+Crucially, previous testing highlighted the LLM's poor habit of utilizing implicit type inference when auto-generating definitions. Without guidance, models frequently wrote raw natural definitions (e.g., $\forall x, x \in A$), leading to immediate compilation failures due to indeterminate universe structures. 
+The Python prompt incorporates explicit system-level instructions demanding strict variable typing (such as coercing $\forall (x : \alpha)$ over sets), thus boosting first-pass compilation probability against Mathlib requirements.

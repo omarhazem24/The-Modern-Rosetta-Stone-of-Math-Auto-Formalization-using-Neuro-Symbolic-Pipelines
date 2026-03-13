@@ -1,0 +1,63 @@
+\chapter{Results and Discussion}
+\label{chap:Four}
+
+\section{Manual Formalization Outcomes}
+\label{sec:manual-results}
+
+This section presents the results from the manual formalization phase (Week 4), where selected definitions from Rosen's \textit{Discrete Mathematics} were translated into verified Lean 4 code.
+
+\subsection{Successfully Formalized Definitions}
+The manual translation process successfully formalized the following categories of definitions:
+
+\begin{itemize}
+    \item \textbf{Set Operations}: Union, intersection, complement, and subset relations were translated into Lean 4 using Mathlib's \texttt{Set} type and standard set theory notation.
+    \item \textbf{Logical Connectives}: Formalized definitions of conjunction, disjunction, and implication using Lean's \texttt{Prop} type.
+    \item \textbf{Relations}: Defined binary relations as predicates over Cartesian products, with properties such as reflexivity and transitivity.
+\end{itemize}
+
+\subsection{Compilation and Verification}
+All manually formalized definitions passed Lean 4's type checker without errors, confirming their logical consistency. The Lean compiler served as the "Truth Scanner," validating that each definition adhered to the strict rules of dependent type theory.
+
+\subsection{Challenges Encountered}
+Several challenges emerged during manual formalization:
+
+\begin{itemize}
+    \item \textbf{Implicit Assumptions}: Textbook definitions often assume context (e.g., "let $S$ be a set") that must be made explicit in Lean's type system.
+    \item \textbf{Notation Mismatches}: Standard mathematical notation does not always map cleanly to Lean 4 syntax, requiring careful translation decisions.
+    \item \textbf{Mathlib Dependencies}: Some definitions required understanding Mathlib's existing formalization conventions to ensure compatibility.
+\end{itemize}
+
+\subsection{Baseline Metrics}
+The manual formalization phase established baseline metrics for later comparison with LLM-generated translations:
+
+\begin{itemize}
+    \item \textbf{Translation Time}: Average time per definition for manual formalization.
+    \item \textbf{Code Length}: Lines of Lean 4 code required per English definition.
+    \item \textbf{Success Rate}: 100\% compilation success for manually translated definitions.
+\end{itemize}
+
+These metrics provide a reference point for evaluating the effectiveness of the automated "Truth Scanner" pipeline in subsequent phases.
+
+\section{Next Steps: LLM-Based Automation}
+\label{sec:future-automation}
+
+With the manual baseline established, future work will implement the automated translation pipeline using Large Language Models (LLMs). The LLM will be prompted to generate Lean 4 code from English definitions, with a "Repair Loop" that feeds compiler errors back into the prompt for iterative self-correction. The success of this automation will be measured against the manual baseline established in this phase.
+
+\subsection{Successfully Formalized Definitions}
+The manual translation process successfully formalized the following categories...
+
+\subsection{Compilation and Verification}
+All manually formalized definitions passed Lean 4's type checker without errors. Figure \ref{fig:lean-screenshot} illustrates the Lean 4 VS Code interface, showing the "No goals" message which confirms a successful formalization.
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{img/lean_formalization_screenshot.png}{
+        \includegraphics[width=0.8\textwidth]{img/lean_formalization_screenshot.png}
+    }{
+        \fbox{\begin{minipage}[c][4cm][c]{0.8\textwidth}\centering Image: Lean 4 VS Code Interface (Placeholder, place in img/ folder)\end{minipage}}
+    }
+    \caption{Manual formalization of Set Theory definitions in Lean 4.}
+    \label{fig:lean-screenshot}
+\end{figure}
+
+The Lean compiler served as the "Truth Scanner," validating that each definition adhered to the strict rules of dependent type theory.

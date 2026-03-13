@@ -148,6 +148,12 @@ A generic Python command-line interface was constructed utilizing the \texttt{op
 
 The translation logic relies on rigorous \textit{prompt engineering} to ensure formatting. The system prompt embedded in the script explicitly forbids markdown formatting, thereby guaranteeing the LLM's response only yields raw valid syntax, ready for immediate compilation by the mathematical symbol compiler.
 
+\vspace{0.5cm}
+\begin{center}
+\lstinputlisting[language=Python, frame=single, caption={Core Prompt Logic from \texttt{llm\_translator.py}}, label={lst:python_script}, firstline=14, lastline=37, basicstyle=\ttfamily\scriptsize]{scripts/llm_translator.py}
+\end{center}
+\vspace{0.5cm}
+
 \subsection{Typing and Quantifier Enforcement}
 Crucially, previous testing highlighted the LLM's poor habit of utilizing implicit type inference when auto-generating definitions. Without guidance, models frequently wrote raw natural definitions (e.g., $\forall x, x \in A$), leading to immediate compilation failures due to indeterminate universe structures. 
 The Python prompt incorporates explicit system-level instructions demanding strict variable typing (such as coercing $\forall (x : \alpha)$ over sets), thus boosting first-pass compilation probability against Mathlib requirements.

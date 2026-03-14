@@ -1,9 +1,0 @@
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The ``Rosetta Stone'' Concept: Bridging Natural Language and Formal Logic. The English text acts as the conceptual layer, while the formal code acts as the verifiable foundation.}}{5}{figure.caption.5}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces High-Level Architecture of the Neuro-Symbolic Pipeline}}{8}{figure.caption.6}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Manual Formalization Workflow for Textbook Definitions}}{11}{figure.caption.7}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Manual formalization of Set Theory definitions in Lean 4.}}{15}{figure.caption.8}%
-\addvspace {10\p@ }

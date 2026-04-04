@@ -27,13 +27,14 @@ Unlike standard programming languages, \texttt{Lean 4} operates both as a functi
     \item \textbf{Mathlib4:} The Lean ecosystem is uniquely powered by \texttt{Mathlib}, a massive, community-driven, crowdsourced library containing tens of thousands of formalized theorems across algebra, topology, and calculus \cite{mathlib, lean4_doc}. It provides the necessary foundation for the ``Truth Scanner'' pipeline.
 \end{itemize}
 
-\section{Neuro-Symbolic AI Pipelines}
+\section{Neuro-Symbolic AI Pipelines and the Schema-Guided Framework}
 This thesis utilizes a neuro-symbolic approach to solve the auto-formalization challenge, a technique highly inspired by recent high-profile research like DeepMind's AlphaProof \cite{alphaproof2024, neural_formal}. Pure neuro-models (like ChatGPT) are excellent semantic engines but struggle with strict rule adherence, frequently leading to "hallucinations"—convincingly stated but mathematically impossible conclusions \cite{llm_hallucination, proof_systems}.
 
-By building a neuro-symbolic pipeline, we segment responsibilities: 
+To formalize this architecture, we adopt a \textbf{Schema-Guided Framework} denoted as $K = (A, D, S)$. In this structure:
 \begin{enumerate}
-    \item \textbf{The Neuro Layer (LLM):} Handles the creative translation and contextual interpretation of the ambiguous English text.
-    \item \textbf{The Symbolic Layer (Lean 4):} Provides the rigorous, uncompromising cryptographic verification of the translated logic \cite{llm_math, symbolic_ai}.
+    \item \textbf{The Schema ($S$):} The schema serves as the foundational Lean 4 Formal Library. It dictates how ``Atomic Definitions'' (specifically sourced from Rosen's \textit{Discrete Mathematics and Its Applications}) are mapped into verifiable structures.
+    \item \textbf{The Neuro Component ($A$):} Acts as the semantic translation agent (LLM), handling the creative decomposition of ambiguous English text into structured logical components based on the schema $S$.
+    \item \textbf{The Symbolic Auditor ($D$):} The Lean 4 compiler itself enforces the \textbf{Verification Constraint}. The system is explicitly designed so that mathematical ``Truth'' is not decided by the LLM probabilistically, but deterministically guaranteed by the successful compilation of the Lean code \cite{llm_math, symbolic_ai}.
 \end{enumerate}
 This dual-engine architecture guarantees that if an auto-generated formalization successfully compiles in the symbolic layer, it is definitively true, completely eradicating the issue of AI hallucinations.
 
@@ -41,3 +42,32 @@ This dual-engine architecture guarantees that if an auto-generated formalization
 To train, evaluate, and benchmark the LLM capabilities within our automated pipeline, it is necessary to first manually formalize a core library of mathematical definitions from Rosen's textbook \cite{rosen2019}. This manually curated code serves as our absolute "Ground Truth". 
 
 For instance, the definitions of basic Set Theory and Logic—such as logical implication, set intersection, subset relations, and function injectivity—have been successfully transcribed into functional Lean 4 code within our \texttt{Definitions.lean} module. Formalizing even elementary concepts like a subset requires strict syntax, explicit variable typing (such as \texttt{variable \{$\alpha$ : Type\}}), and logic quantifiers that are entirely abstracted away in natural English texts. Understanding this structural gap is essential for building the auto-prompts required for the LLM pipeline discussed in the subsequent chapters.
+
+\section{Lean 4 Auto-Formalization Prototype and the Audit Paradigm}
+Identifying the correct structural gap is an iterative process. When an LLM translates an English proposition directly into Lean 4 without deep structural reasoning, it usually produces compilation errors. To fix these errors, the process necessitates an \textbf{Audit Paradigm}, in which the error is fed back to the model as a prompt to yield a valid statement. This paradigm operates as a measurable \textit{Repair Success Rate} mechanism—how many iterative loops does the LLM require to transition from a failed syntax query to a compiled Lean statement?
+
+Below is a theoretical proof-trace demonstrating an English theorem, its initially failed translation, the symbolic error, and the successfully repaired Lean 4 code.
+
+\begin{itemize}
+    \item \textbf{English Theorem:} ``If $A$ and $B$ are sets, then the intersection of $A$ and $B$ is a subset of $A$.''
+    \item \textbf{Failed LLM Translation (Iteration 0):}
+\begin{verbatim}
+theorem inter_subset (A B : Set) : A \inter B \subseteq A := by
+  intro x
+  exact x.1
+\end{verbatim}
+    \item \textbf{Lean Compiler Error Message (Symbolic Audit):}
+\begin{verbatim}
+type expected, got
+  Set
+\end{verbatim}
+    \textit{Explanation:} The LLM failed to specify the type universe for the sets $A$ and $B$. In Lean 4, \texttt{Set} requires a type parameter like \texttt{Set $\alpha$}.
+    \item \textbf{Repaired Lean Code (Successful Iteration):}
+\begin{verbatim}
+variable {alpha : Type}
+theorem inter_subset (A B : Set alpha) : A \inter B \subseteq A := by
+  intro x hx
+  exact hx.1
+\end{verbatim}
+\end{itemize}
+This example effectively highlights the necessity for a structured mathematical formalization of the error correction mapping.

@@ -163,3 +163,75 @@ The translation logic relies on rigorous \textit{prompt engineering} to ensure f
 \subsection{Typing and Quantifier Enforcement}
 Crucially, previous testing highlighted the LLM's poor habit of utilizing implicit type inference when auto-generating definitions. Without guidance, models frequently wrote raw natural definitions (e.g., $\forall x, x \in A$), leading to immediate compilation failures due to indeterminate universe structures. 
 The Python prompt incorporates explicit system-level instructions demanding strict variable typing (such as coercing $\forall (x : \alpha)$ over sets), thus boosting first-pass compilation probability against Mathlib requirements.
+
+\section{Phase 5: The Iterative Repair Loop and State-Space Formalization}
+\label{sec:phase5-repair}
+
+To transition from static auto-formalization to a dynamic theorem proving system, the pipeline mathematically requires an iterative feedback mechanism. When an initial translation $T_0$ fails to compile, the system enters a mathematically defined state-space to repair it.
+
+\subsection{Mathematical Formalization of the Repair Mapping ($\Phi$)}
+We systematically define the state-space of the repair agent as a tuple $(S, E, P)$, where:
+\begin{itemize}
+    \item $S$: The set of all possible Lean 4 abstract syntax trees (the formal code state).
+    \item $E$: The set of all deterministic error bounds from the Lean 4 compiler (e.g., type mismatches, unknown identifiers).
+    \item $P$: The domain of natural language correction prompts.
+\end{itemize}
+
+The formal mapping for the Error-to-Prompt transition is defined as:
+\[ \Phi : E \times S \to P \]
+This function $\Phi$ tokenizes the Lean compiler error $e_n \in E$ corresponding to code state $s_n \in S$ and translates it into a targeted LLM Correction Prompt $p_{n+1} \in P$. The model then yields a new state $s_{n+1}$, continuing until $e = \emptyset$ (successful compilation) or a maximum iteration threshold is reached.
+
+\subsection{Implementation Procedures of the Repair Loop ($\Phi$ Mapping)}
+To translate the mathematical framework of the repair mapping into a programmatic pipeline, the Python environment was heavily re-engineered to facilitate continuous dynamic feedback. The implemented algorithm operates iteratively via the following steps:
+\begin{enumerate}
+    \item \textbf{Initial Translation ($T_0$):} The LLM generates the first mathematical attempt at formalizing the English text via the OpenAI API.
+    \item \textbf{Symbolic Audit ($D$):} The script captures the Lean 4 compiler output using the OS \texttt{subprocess} module. If the exit code matches $0$, the Verification Constraint is mathematically satisfied and the script finishes correctly.
+    \item \textbf{Error Tokenization and Feedback Construction:} If the compilation fails, the script captures the standard error (\texttt{stderr}). A targeted \textit{Correction Prompt} is iteratively crafted, injecting the exact compiler traceback: \newline
+    \textit{`The Lean 4 compiler returned the following error: <ERROR>. Please repair the code.`}
+    \item \textbf{Message History Iteration ($T_{n+1}$):} The LLM receives the entire context tree (its previous failed translation and the Lean auditor's complaint) to output a repaired code block. The system iterates until $e = \emptyset$ or the operation exceeds a hard-coded failure bound.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm and 1cm,
+        box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, text centered, text width=2.5cm, font=\small\sffamily},
+        decision/.style={diamond, draw, aspect=1.8, text centered, text width=2.2cm, font=\small\sffamily},
+        arrow/.style={thick, ->, >=stealth}
+    ]
+
+    % Nodes
+    \node (input) [box] {1) User\\Math Input};
+    \node (llm) [box, right=of input] {2) LLM\\Generator};
+    \node (compiler) [decision, right=of llm] {3) Lean 4\\Compiler};
+    \node (output) [box, right=of compiler] {Output};
+    \node (truncator) [box, below=of compiler] {Context\\Truncator};
+
+    % Arrows
+    \draw [arrow] (input) -- (llm);
+    \draw [arrow] (llm) -- (compiler);
+    \draw [arrow] (compiler) -- node[anchor=south, font=\footnotesize] {YES} (output);
+    \draw [arrow] (compiler) -- node[anchor=west, font=\footnotesize, align=left] {NO\\(Error)} (truncator);
+    \draw [arrow] (truncator) -| node[anchor=north east, font=\footnotesize] {Filtered Prompt} (llm);
+
+    \end{tikzpicture}
+    \caption{Architecture of the Iterative Repair Loop ($\Phi$ Mapping), demonstrating the cyclic neuro-symbolic feedback.}
+    \label{fig:repair-loop-arch}
+\end{figure}
+
+\subsection{Engineering Challenges and Ingenious Solutions}
+During the implementation of the feedback loop, several practical software engineering challenges arose in bridging a probabilistic neuro-model with a strictly deterministic compiler:
+
+\begin{itemize}
+    \item \textbf{Context Window and Error Verbosity:} The Lean 4 compiler is notoriously verbose when throwing type-universe mismatches. Passing a multi-page traceback into the neuro-layer rapidly degraded the LLM's attention span, causing failure to identify the root syntax violation. \newline
+    \textit{Solution:} The Python framework implements a strict "Context Window Truncation" bound ($E_{trunc}$). The prompt limits the traceback strictly to the first 1000 characters. This isolates the error tokenization to the exact mathematical violation without overloading the API sequence length.
+    
+    \item \textbf{Markdown Hallucination During Repair:} While the initial prompt accurately restricted the model to output raw code, during iterative \textit{correction} loops, the model frequently relapsed into "conversational apologies" or wrapped its repaired code in Markdown blocks (e.g., \texttt{```lean ... ```}). This predictably broke the subsequent compiler audit instantly. \newline
+    \textit{Solution:} An ingenious programmatic "Sanitization Filter" was built directly into the Python loop pipeline. Before writing the state $s_{n}$ to the disk, the script rigorously searches for and strips any markdown bounding tags (and standard conversational filler) using string splits, guaranteeing that the Lean compiler purely parses verifiable math syntax.
+    
+    \item \textbf{Infinite Divergence Loops:} When the model fundamentally lacked the deep mathematical reasoning to repair a type structure, it would occasionally enter an infinite loop---rapidly alternating between two mathematically invalid states (e.g., oscillating between a missing universe mapping and incorrectly coercing the type parameter). \newline
+    \textit{Solution:} The state-space exploration is explicitly bounded by a deterministic `max\_retries` counter (optimized to $N=5$). If $N$ is reached, the process gracefully aborts. The logical fallacy is then automatically diverted and documented into the fallback \textbf{Manual Auto-Formalization Benchmark}, preventing the execution cycle from crashing the pipeline entirely.
+\end{itemize}
+
+\subsection{Manual Auto-Formalization Benchmark (Fallback Paradigm)}
+In instances where the structured repair loop reaches a technological dead-end (e.g., maximum iteration overload due to fundamental LLM reasoning logical fallacies), the protocol dictates a pivot to a \textbf{Manual Auto-Formalization Benchmark}. This acts as a robust measurement of the ``Repair Success Rate.'' Current model fallacies are strictly documented into categories (e.g., Type Inference Failure, Universe Instantiation Error, Hallucinated Tactic). Categorizing these specific logical fallacies, as identified by the Lean compiler auditor, ensures sustained scientific rigor across the thesis even when full automation yields false.

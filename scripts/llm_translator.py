@@ -6,7 +6,6 @@ import re
 from google import genai
 
 def compile_lean(file_path: str) -> tuple[bool, str]:
-    # NOTE: Assumes 'lean' is installed and accessible in the system PATH
     result = subprocess.run(["lean", file_path], capture_output=True, text=True)
     is_success = result.returncode == 0
     error_msg = result.stderr if result.stderr else result.stdout
@@ -19,8 +18,6 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
     client_key = api_key or os.environ.get("GEMINI_API_KEY")
     if not client_key:
         raise ValueError("API key not found. Please set GEMINI_API_KEY environment variable.")
-    
-    # Configure the newer Google GenAI SDK
     client = genai.Client(api_key=client_key)
     
     system_prompt = (
@@ -31,8 +28,6 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
         "3. Ensure your types, theorems, definitions, and syntax strictly adhere to Lean 4 standards.\n"
         "Truth Source: Do not assume the LLM is correct; only a successful compilation counts as 'Truth'."
     )
-    
-    # Initialize the chat session
     chat = client.chats.create(
         model="gemini-2.5-flash",
         config=genai.types.GenerateContentConfig(
@@ -51,20 +46,14 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
         "last_repair_prompt": "",
         "verified_code": ""
     }
-    
-    # The first prompt
     current_prompt = f"Translate the following text into Lean 4 code:\n'{english_text}'"
 
     for iteration in range(1, max_retries + 1):
         metrics["iterations"] = iteration
         print(f"\n=========================================")
         print(f"--- Translation Iteration {iteration}/{max_retries} ---")
-        
-        # Send message to Gemini
         response = chat.send_message(current_prompt)
         lean_code = response.text.strip()
-        
-        # Ingenious Solution 1: Clean up potential markdown if the model hallucinated it
         code_blocks = re.findall(r"```(?:lean|Lean|LEAN)?\n(.*?)```", response.text, re.DOTALL)
         if code_blocks:
             lean_code = code_blocks[-1].strip()
@@ -73,12 +62,8 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
 
         if iteration == 1:
             metrics["initial_translation"] = lean_code
-
-        # Add the assistant's generated code to the conversation history (Handled automatically by Gemini chat)
         
         print("Generated Code:\n" + lean_code)
-        
-        # Save to file to compile
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(lean_code)
             
@@ -92,8 +77,6 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
             break
         else:
             print("Verification Constraint FAILED. The LLM generated mathematically invalid code.")
-            
-            # Ingenious Solution 2: Context Window Truncation (avoid overloading the model with massive trace)
             truncated_error = error_msg[:1000]
             print(f"--- Lean Compiler Error (Feedback for \\Phi mapping) ---\n")
             print(truncated_error + ("...\n[Truncated]" if len(error_msg) > 1000 else ""))
@@ -101,13 +84,9 @@ def repair_loop_translation(english_text: str, output_file: str, max_retries: in
             
             metrics["errors"].append(error_msg)
             metrics["last_error"] = truncated_error
-            
-            # State-Space Pivot: If max retries hit, fallback
             if iteration == max_retries:
                 print(f"Fallback Paradigm activated: Reached maximum iterations. Please categorize this logical fallacy into the Manual Auto-Formalization Benchmark.")
                 break
-                
-            # Formal mapping Phi: Error -> Prompt
             current_prompt = (
                 f"The Lean 4 compiler returned the following error for your previous code:\n{truncated_error}\n\n"
                 f"Please follow this structured transformation:\n"
@@ -135,8 +114,6 @@ if __name__ == "__main__":
     
     try:
         metrics = repair_loop_translation(args.text, args.output, args.max_retries)
-        
-        # Track persistent metric stats
         stats_file = "benchmark_stats.json"
         stats = {"total_attempts": 0, "total_successes": 0}
         if os.path.exists(stats_file):
@@ -180,8 +157,6 @@ if __name__ == "__main__":
             print(f"\nFinal Verified Lean 4 code saved to '{args.output}'")
         else:
             print(f"\nProcess failed after {metrics['iterations']} iterations. Last output saved to '{args.output}'. Manual intervention required.")
-            
-            # Log the errors for the benchmark
             with open("lean_errors.txt", "a", encoding="utf-8") as f:
                 f.write(f"\n--- Failed Definition: {args.text} ---\n")
                 if metrics["errors"]:

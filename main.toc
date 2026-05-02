@@ -1,0 +1,42 @@
+\contentsline {chapter}{Abstract}{II}{chapter*.1}%
+\contentsline {chapter}{Acknowledgments}{III}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Project Overview}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Motivation and Significance}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Objectives}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Thesis Organization}{2}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Background}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The Auto-Formalization Challenge}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Lean 4: A Modern Theorem Prover}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Neuro-Symbolic AI Pipelines and the Schema-Guided Framework}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Manual Formalization Example: The Ground Truth}{6}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Lean 4 Auto-Formalization Prototype and the Audit Paradigm}{6}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Methodology}{8}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview of the Neuro-Symbolic Pipeline}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Phase 1: Learning and Environment Setup}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Phase 2: Source Selection and Taxonomy}{9}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Phase 3: Manual Formalization (Gold Standard)}{9}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Phase 4: Automated Translation and Prompt Engineering}{10}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Phase 5: Iterative Repair Loop ($\Phi $ mapping)}{10}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Phase 6: Evaluation and Current Status}{11}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Reproducibility and Running the Pipeline}{11}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Summary}{11}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Results and Discussion}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Manual Formalization Outcomes}{12}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Successfully Formalized Definitions}{12}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Compilation and Verification}{12}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Challenges Encountered}{12}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Baseline Metrics}{13}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Phase I Pipeline Execution}{13}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Initial Translation Capabilities}{13}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Evaluation of LLM Output vs. Ground Truth}{14}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Compilation and Verification in Lean}{14}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Phase II: Autonomous Repair Loop Outcomes}{15}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Error Reduction and Iteration Metrics}{15}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Observed Fallacies and Hallucinations}{17}{subsection.4.3.2}%
+\contentsline {chapter}{\numberline {5}Conclusion and Future Work}{18}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Summary of Achievements}{18}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Contributions}{18}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Long-Term Vision}{19}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Potential Problems and Open Issues}{19}{section.5.4}%
+\contentsline {chapter}{References}{22}{chapter*.7}%

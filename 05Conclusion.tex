@@ -1,0 +1,55 @@
+\chapter{Conclusion and Future Work}
+\label{chap:Five}
+
+\section{Summary of Achievements}
+\label{sec:summary}
+
+This thesis has documented the construction of the "Truth Scanner"\textemdash a neuro-symbolic pipeline for translating informal mathematical definitions into formally verified Lean 4 code. The work completed establishes a rigorous foundation for automated mathematical formalization:
+
+\begin{itemize}
+    \item \textbf{Environment Mastery}: Successfully configured a complete Lean 4 development environment with Mathlib integration and completed the Natural Number Game to gain practical proficiency in tactic-based theorem proving.
+    \item \textbf{Systematic Selection}: Identified and taxonomized key definitions from Rosen's \textit{Discrete Mathematics}, mapping informal English to formal logical structures.
+    \item \textbf{Manual Baseline}: Created a gold standard set of manually formalized definitions that compile successfully in Lean 4, establishing baseline metrics against which AI output can be judged.
+    \item \textbf{Automated API Pipeline}: Developed a successful Python interface utilizing the OpenAI API to systematically submit English mathematical queries to a Large Language Model and retrieve computationally typed Lean 4 source code.
+\end{itemize}
+
+These accomplishments successfully complete the first half of the neuro-symbolic architecture, bridging the gap between textbook mathematics and machine-verifiable code logic.
+
+\section{Contributions}
+\label{sec:contributions}
+
+The primary contributions of this work include:
+
+\begin{enumerate}
+    \item \textbf{Verified Formalization Baseline}: A collection of manually translated mathematical definitions from a standard undergraduate textbook, serving as ground truth for evaluating automated approaches.
+    \item \textbf{Translation Methodology}: A documented systematic process for decomposing informal mathematical language into Lean 4 dependent types using prompt engineering.
+    \item \textbf{Challenge Analysis}: Identification of common AI pitfalls and ambiguities encountered when formalizing mathematical logic, such as LLM "type inference" hallucinations.
+\end{enumerate}
+
+\section{Long-Term Vision}
+\label{sec:vision}
+
+The ultimate goal of this research is to create a "Wikipedia of Truth" where mathematical claims are automatically backed by machine-checked proofs. By debugging educational materials at scale, this work aims to:
+
+\begin{itemize}
+    \item Improve the precision and clarity of mathematical textbooks
+    \item Detect subtle logical errors that human reviewers might miss
+    \item Accelerate the formalization of mathematical knowledge
+    \item Evaluate the current capabilities\textemdash and limitations\textemdash of LLMs in maintaining mathematical rigor
+\end{itemize}
+
+As Large Language Models continue to advance, the "Truth Scanner" pipeline represents a crucial step toward trustworthy AI-assisted mathematics, where creative language understanding meets uncompromising logical verification.
+
+\section{Potential Problems and Open Issues}
+\label{sec:open-issues}
+
+The following practical problems should be considered by future researchers continuing this project. These items represent recurring risks and partially-solved engineering challenges that will require sustained attention:
+
+\begin{itemize}
+    \item \textbf{LLM hallucinations and Markdown artifacts}: Despite sanitization, models sometimes emit non-code text or Markdown fences that break compilation. Hardening the sanitization layer, adding stricter output validation, and using parsers to reject non-parseable output will be necessary.
+    \item \textbf{Repair-loop divergence and oscillation}: The current conservative \texttt{max\_retries} avoids infinite loops but can still trigger oscillatory behavior for deep dependent-type issues. Future work should explore more sophisticated search strategies (e.g., prioritized error clustering, symbolic constraint extraction, or integrating a secondary synthesizer) to reduce wasted iterations.
+    \item \textbf{Scalability and performance}: Polling the Lean compiler at scale (for large documents or many parallel translations) creates CPU and latency bottlenecks. A production continuation should implement batching, persistent worker processes, and caching of common lemmas and error patterns.
+    \item \textbf{Dependency and environment drift}: Lean, Mathlib, and Python library versions will evolve. The repository should include pinned toolchain manifests, reproducible container images, and CI jobs that alert on breaking upgrades.
+    \item \textbf{Evaluation automations and metrics}: Current evaluation artifacts are manual or semi-automated. Future researchers should formalize an automated benchmark harness, standardized metrics for repair-loop efficiency, and hierarchical success criteria that separate syntactic compilation from semantic proof correctness.
+    \item \textbf{Data provenance and licensing}: When scaling to public textbooks or community contributions, ensure proper licensing, provenance tracking for source material, and mechanisms to handle ambiguous or copyrighted inputs.
+\end{itemize}

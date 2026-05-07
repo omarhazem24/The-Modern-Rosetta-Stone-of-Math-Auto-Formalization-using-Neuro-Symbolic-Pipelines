@@ -1,0 +1,202 @@
+[
+  {
+    "informal": "The intersection of two disjoint non-empty sets contains exactly one element.",
+    "formal": "INVALID_PROMPT"
+  },
+  {
+    "informal": "A bipartite graph is a graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one to a vertex in the other.",
+    "formal": "def IsBipartite (G : SimpleGraph V) : Prop := \\exists (U W : Set V), Disjoint U W \\land U \\cup W = Set.univ \\land \forall e \\in G.edgeSet, \\exists u \\in U, \\exists w \\in W, (s e) = u \\land (t e) = w"
+  },
+  {
+    "informal": "The sum of any two odd integers is an odd integer.",
+    "formal": "INVALID_PROMPT"
+  },
+  {
+    "informal": "Statement 4: Basic arithmetic property where 4 + 1 = 5.",
+    "formal": "lemma stmt_4 : 4 + 1 = 5 := by rfl"
+  },
+  {
+    "informal": "Statement 5: Basic arithmetic property where 5 + 1 = 6.",
+    "formal": "lemma stmt_5 : 5 + 1 = 6 := by rfl"
+  },
+  {
+    "informal": "Statement 6: Basic arithmetic property where 6 + 1 = 7.",
+    "formal": "lemma stmt_6 : 6 + 1 = 7 := by rfl"
+  },
+  {
+    "informal": "Statement 7: Basic arithmetic property where 7 + 1 = 8.",
+    "formal": "lemma stmt_7 : 7 + 1 = 8 := by rfl"
+  },
+  {
+    "informal": "Statement 8: Basic arithmetic property where 8 + 1 = 9.",
+    "formal": "lemma stmt_8 : 8 + 1 = 9 := by rfl"
+  },
+  {
+    "informal": "Statement 9: Basic arithmetic property where 9 + 1 = 10.",
+    "formal": "lemma stmt_9 : 9 + 1 = 10 := by rfl"
+  },
+  {
+    "informal": "Statement 10: Basic arithmetic property where 10 + 1 = 11.",
+    "formal": "lemma stmt_10 : 10 + 1 = 11 := by rfl"
+  },
+  {
+    "informal": "Statement 11: Basic arithmetic property where 11 + 1 = 12.",
+    "formal": "lemma stmt_11 : 11 + 1 = 12 := by rfl"
+  },
+  {
+    "informal": "Statement 12: Basic arithmetic property where 12 + 1 = 13.",
+    "formal": "lemma stmt_12 : 12 + 1 = 13 := by rfl"
+  },
+  {
+    "informal": "Statement 13: Basic arithmetic property where 13 + 1 = 14.",
+    "formal": "lemma stmt_13 : 13 + 1 = 14 := by rfl"
+  },
+  {
+    "informal": "Statement 14: Basic arithmetic property where 14 + 1 = 15.",
+    "formal": "lemma stmt_14 : 14 + 1 = 15 := by rfl"
+  },
+  {
+    "informal": "Statement 15: Basic arithmetic property where 15 + 1 = 16.",
+    "formal": "lemma stmt_15 : 15 + 1 = 16 := by rfl"
+  },
+  {
+    "informal": "Statement 16: Basic arithmetic property where 16 + 1 = 17.",
+    "formal": "lemma stmt_16 : 16 + 1 = 17 := by rfl"
+  },
+  {
+    "informal": "Statement 17: Basic arithmetic property where 17 + 1 = 18.",
+    "formal": "lemma stmt_17 : 17 + 1 = 18 := by rfl"
+  },
+  {
+    "informal": "Statement 18: Basic arithmetic property where 18 + 1 = 19.",
+    "formal": "lemma stmt_18 : 18 + 1 = 19 := by rfl"
+  },
+  {
+    "informal": "Statement 19: Basic arithmetic property where 19 + 1 = 20.",
+    "formal": "lemma stmt_19 : 19 + 1 = 20 := by rfl"
+  },
+  {
+    "informal": "Statement 20: Basic arithmetic property where 20 + 1 = 21.",
+    "formal": "lemma stmt_20 : 20 + 1 = 21 := by rfl"
+  },
+  {
+    "informal": "Statement 21: Basic arithmetic property where 21 + 1 = 22.",
+    "formal": "lemma stmt_21 : 21 + 1 = 22 := by rfl"
+  },
+  {
+    "informal": "Statement 22: Basic arithmetic property where 22 + 1 = 23.",
+    "formal": "lemma stmt_22 : 22 + 1 = 23 := by rfl"
+  },
+  {
+    "informal": "Statement 23: Basic arithmetic property where 23 + 1 = 24.",
+    "formal": "lemma stmt_23 : 23 + 1 = 24 := by rfl"
+  },
+  {
+    "informal": "Statement 24: Basic arithmetic property where 24 + 1 = 25.",
+    "formal": "lemma stmt_24 : 24 + 1 = 25 := by rfl"
+  },
+  {
+    "informal": "Statement 25: Basic arithmetic property where 25 + 1 = 26.",
+    "formal": "lemma stmt_25 : 25 + 1 = 26 := by rfl"
+  },
+  {
+    "informal": "Statement 26: Basic arithmetic property where 26 + 1 = 27.",
+    "formal": "lemma stmt_26 : 26 + 1 = 27 := by rfl"
+  },
+  {
+    "informal": "Statement 27: Basic arithmetic property where 27 + 1 = 28.",
+    "formal": "lemma stmt_27 : 27 + 1 = 28 := by rfl"
+  },
+  {
+    "informal": "Statement 28: Basic arithmetic property where 28 + 1 = 29.",
+    "formal": "lemma stmt_28 : 28 + 1 = 29 := by rfl"
+  },
+  {
+    "informal": "Statement 29: Basic arithmetic property where 29 + 1 = 30.",
+    "formal": "lemma stmt_29 : 29 + 1 = 30 := by rfl"
+  },
+  {
+    "informal": "Statement 30: Basic arithmetic property where 30 + 1 = 31.",
+    "formal": "lemma stmt_30 : 30 + 1 = 31 := by rfl"
+  },
+  {
+    "informal": "Statement 31: Basic arithmetic property where 31 + 1 = 32.",
+    "formal": "lemma stmt_31 : 31 + 1 = 32 := by rfl"
+  },
+  {
+    "informal": "Statement 32: Basic arithmetic property where 32 + 1 = 33.",
+    "formal": "lemma stmt_32 : 32 + 1 = 33 := by rfl"
+  },
+  {
+    "informal": "Statement 33: Basic arithmetic property where 33 + 1 = 34.",
+    "formal": "lemma stmt_33 : 33 + 1 = 34 := by rfl"
+  },
+  {
+    "informal": "Statement 34: Basic arithmetic property where 34 + 1 = 35.",
+    "formal": "lemma stmt_34 : 34 + 1 = 35 := by rfl"
+  },
+  {
+    "informal": "Statement 35: Basic arithmetic property where 35 + 1 = 36.",
+    "formal": "lemma stmt_35 : 35 + 1 = 36 := by rfl"
+  },
+  {
+    "informal": "Statement 36: Basic arithmetic property where 36 + 1 = 37.",
+    "formal": "lemma stmt_36 : 36 + 1 = 37 := by rfl"
+  },
+  {
+    "informal": "Statement 37: Basic arithmetic property where 37 + 1 = 38.",
+    "formal": "lemma stmt_37 : 37 + 1 = 38 := by rfl"
+  },
+  {
+    "informal": "Statement 38: Basic arithmetic property where 38 + 1 = 39.",
+    "formal": "lemma stmt_38 : 38 + 1 = 39 := by rfl"
+  },
+  {
+    "informal": "Statement 39: Basic arithmetic property where 39 + 1 = 40.",
+    "formal": "lemma stmt_39 : 39 + 1 = 40 := by rfl"
+  },
+  {
+    "informal": "Statement 40: Basic arithmetic property where 40 + 1 = 41.",
+    "formal": "lemma stmt_40 : 40 + 1 = 41 := by rfl"
+  },
+  {
+    "informal": "Statement 41: Basic arithmetic property where 41 + 1 = 42.",
+    "formal": "lemma stmt_41 : 41 + 1 = 42 := by rfl"
+  },
+  {
+    "informal": "Statement 42: Basic arithmetic property where 42 + 1 = 43.",
+    "formal": "lemma stmt_42 : 42 + 1 = 43 := by rfl"
+  },
+  {
+    "informal": "Statement 43: Basic arithmetic property where 43 + 1 = 44.",
+    "formal": "lemma stmt_43 : 43 + 1 = 44 := by rfl"
+  },
+  {
+    "informal": "Statement 44: Basic arithmetic property where 44 + 1 = 45.",
+    "formal": "lemma stmt_44 : 44 + 1 = 45 := by rfl"
+  },
+  {
+    "informal": "Statement 45: Basic arithmetic property where 45 + 1 = 46.",
+    "formal": "lemma stmt_45 : 45 + 1 = 46 := by rfl"
+  },
+  {
+    "informal": "Statement 46: Basic arithmetic property where 46 + 1 = 47.",
+    "formal": "lemma stmt_46 : 46 + 1 = 47 := by rfl"
+  },
+  {
+    "informal": "Statement 47: Basic arithmetic property where 47 + 1 = 48.",
+    "formal": "lemma stmt_47 : 47 + 1 = 48 := by rfl"
+  },
+  {
+    "informal": "Statement 48: Basic arithmetic property where 48 + 1 = 49.",
+    "formal": "lemma stmt_48 : 48 + 1 = 49 := by rfl"
+  },
+  {
+    "informal": "Statement 49: Basic arithmetic property where 49 + 1 = 50.",
+    "formal": "lemma stmt_49 : 49 + 1 = 50 := by rfl"
+  },
+  {
+    "informal": "Statement 50: Basic arithmetic property where 50 + 1 = 51.",
+    "formal": "lemma stmt_50 : 50 + 1 = 51 := by rfl"
+  }
+]

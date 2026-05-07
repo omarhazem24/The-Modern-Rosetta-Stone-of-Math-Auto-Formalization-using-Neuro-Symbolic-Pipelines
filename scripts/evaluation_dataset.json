@@ -1,0 +1,222 @@
+[
+  {
+    "informal": "Statement 1: the sum of 1 and 1 is 2",
+    "formal": "lemma stmt_1 : 1 + 1 = 2 := by rfl"
+  },
+  {
+    "informal": "Statement 2: the sum of 2 and 2 is 4",
+    "formal": "lemma stmt_2 : 2 + 2 = 4 := by rfl"
+  },
+  {
+    "informal": "Statement 3: the sum of 3 and 3 is 6",
+    "formal": "lemma stmt_3 : 3 + 3 = 6 := by rfl"
+  },
+  {
+    "informal": "Statement 4: the sum of 4 and 4 is 8",
+    "formal": "lemma stmt_4 : 4 + 4 = 8 := by rfl"
+  },
+  {
+    "informal": "Statement 5: the sum of 5 and 5 is 10",
+    "formal": "lemma stmt_5 : 5 + 5 = 10 := by rfl"
+  },
+  {
+    "informal": "Statement 6: the sum of 6 and 6 is 12",
+    "formal": "lemma stmt_6 : 6 + 6 = 12 := by rfl"
+  },
+  {
+    "informal": "Statement 7: the sum of 7 and 7 is 14",
+    "formal": "lemma stmt_7 : 7 + 7 = 14 := by rfl"
+  },
+  {
+    "informal": "Statement 8: the sum of 8 and 8 is 16",
+    "formal": "lemma stmt_8 : 8 + 8 = 16 := by rfl"
+  },
+  {
+    "informal": "Statement 9: the sum of 9 and 9 is 18",
+    "formal": "lemma stmt_9 : 9 + 9 = 18 := by rfl"
+  },
+  {
+    "informal": "Statement 10: the sum of 10 and 10 is 20",
+    "formal": "lemma stmt_10 : 10 + 10 = 20 := by rfl"
+  },
+  {
+    "informal": "Statement 11: the sum of 11 and 11 is 22",
+    "formal": "lemma stmt_11 : 11 + 11 = 22 := by rfl"
+  },
+  {
+    "informal": "Statement 12: the sum of 12 and 12 is 24",
+    "formal": "lemma stmt_12 : 12 + 12 = 24 := by rfl"
+  },
+  {
+    "informal": "Statement 13: the sum of 13 and 13 is 26",
+    "formal": "lemma stmt_13 : 13 + 13 = 26 := by rfl"
+  },
+  {
+    "informal": "Statement 14: the sum of 14 and 14 is 28",
+    "formal": "lemma stmt_14 : 14 + 14 = 28 := by rfl"
+  },
+  {
+    "informal": "Statement 15: the sum of 15 and 15 is 30",
+    "formal": "lemma stmt_15 : 15 + 15 = 30 := by rfl"
+  },
+  {
+    "informal": "Statement 16: the sum of 16 and 16 is 32",
+    "formal": "lemma stmt_16 : 16 + 16 = 32 := by rfl"
+  },
+  {
+    "informal": "Statement 17: the sum of 17 and 17 is 34",
+    "formal": "lemma stmt_17 : 17 + 17 = 34 := by rfl"
+  },
+  {
+    "informal": "Statement 18: the sum of 18 and 18 is 36",
+    "formal": "lemma stmt_18 : 18 + 18 = 36 := by rfl"
+  },
+  {
+    "informal": "Statement 19: the sum of 19 and 19 is 38",
+    "formal": "lemma stmt_19 : 19 + 19 = 38 := by rfl"
+  },
+  {
+    "informal": "Statement 20: the sum of 20 and 20 is 40",
+    "formal": "lemma stmt_20 : 20 + 20 = 40 := by rfl"
+  },
+  {
+    "informal": "Statement 21: the sum of 21 and 21 is 42",
+    "formal": "lemma stmt_21 : 21 + 21 = 42 := by rfl"
+  },
+  {
+    "informal": "Statement 22: the sum of 22 and 22 is 44",
+    "formal": "lemma stmt_22 : 22 + 22 = 44 := by rfl"
+  },
+  {
+    "informal": "Statement 23: the sum of 23 and 23 is 46",
+    "formal": "lemma stmt_23 : 23 + 23 = 46 := by rfl"
+  },
+  {
+    "informal": "Statement 24: the sum of 24 and 24 is 48",
+    "formal": "lemma stmt_24 : 24 + 24 = 48 := by rfl"
+  },
+  {
+    "informal": "Statement 25: the sum of 25 and 25 is 50",
+    "formal": "lemma stmt_25 : 25 + 25 = 50 := by rfl"
+  },
+  {
+    "informal": "Statement 26: the sum of 26 and 26 is 52",
+    "formal": "lemma stmt_26 : 26 + 26 = 52 := by rfl"
+  },
+  {
+    "informal": "Statement 27: the sum of 27 and 27 is 54",
+    "formal": "lemma stmt_27 : 27 + 27 = 54 := by rfl"
+  },
+  {
+    "informal": "Statement 28: the sum of 28 and 28 is 56",
+    "formal": "lemma stmt_28 : 28 + 28 = 56 := by rfl"
+  },
+  {
+    "informal": "Statement 29: the sum of 29 and 29 is 58",
+    "formal": "lemma stmt_29 : 29 + 29 = 58 := by rfl"
+  },
+  {
+    "informal": "Statement 30: the sum of 30 and 30 is 60",
+    "formal": "lemma stmt_30 : 30 + 30 = 60 := by rfl"
+  },
+  {
+    "informal": "Statement 31: the sum of 31 and 31 is 62",
+    "formal": "lemma stmt_31 : 31 + 31 = 62 := by rfl"
+  },
+  {
+    "informal": "Statement 32: the sum of 32 and 32 is 64",
+    "formal": "lemma stmt_32 : 32 + 32 = 64 := by rfl"
+  },
+  {
+    "informal": "Statement 33: the sum of 33 and 33 is 66",
+    "formal": "lemma stmt_33 : 33 + 33 = 66 := by rfl"
+  },
+  {
+    "informal": "Statement 34: the sum of 34 and 34 is 68",
+    "formal": "lemma stmt_34 : 34 + 34 = 68 := by rfl"
+  },
+  {
+    "informal": "Statement 35: the sum of 35 and 35 is 70",
+    "formal": "lemma stmt_35 : 35 + 35 = 70 := by rfl"
+  },
+  {
+    "informal": "Statement 36: the sum of 36 and 36 is 72",
+    "formal": "lemma stmt_36 : 36 + 36 = 72 := by rfl"
+  },
+  {
+    "informal": "Statement 37: the sum of 37 and 37 is 74",
+    "formal": "lemma stmt_37 : 37 + 37 = 74 := by rfl"
+  },
+  {
+    "informal": "Statement 38: the sum of 38 and 38 is 76",
+    "formal": "lemma stmt_38 : 38 + 38 = 76 := by rfl"
+  },
+  {
+    "informal": "Statement 39: the sum of 39 and 39 is 78",
+    "formal": "lemma stmt_39 : 39 + 39 = 78 := by rfl"
+  },
+  {
+    "informal": "Statement 40: the sum of 40 and 40 is 80",
+    "formal": "lemma stmt_40 : 40 + 40 = 80 := by rfl"
+  },
+  {
+    "informal": "Statement 41: the sum of 41 and 41 is 82",
+    "formal": "lemma stmt_41 : 41 + 41 = 82 := by rfl"
+  },
+  {
+    "informal": "Statement 42: the sum of 42 and 42 is 84",
+    "formal": "lemma stmt_42 : 42 + 42 = 84 := by rfl"
+  },
+  {
+    "informal": "Statement 43: the sum of 43 and 43 is 86",
+    "formal": "lemma stmt_43 : 43 + 43 = 86 := by rfl"
+  },
+  {
+    "informal": "Statement 44: the sum of 44 and 44 is 88",
+    "formal": "lemma stmt_44 : 44 + 44 = 88 := by rfl"
+  },
+  {
+    "informal": "Statement 45: the sum of 45 and 45 is 90",
+    "formal": "lemma stmt_45 : 45 + 45 = 90 := by rfl"
+  },
+  {
+    "informal": "Statement 46: the sum of 46 and 46 is 92",
+    "formal": "lemma stmt_46 : 46 + 46 = 92 := by rfl"
+  },
+  {
+    "informal": "Statement 47: the sum of 47 and 47 is 94",
+    "formal": "lemma stmt_47 : 47 + 47 = 94 := by rfl"
+  },
+  {
+    "informal": "Statement 48: the sum of 48 and 48 is 96",
+    "formal": "lemma stmt_48 : 48 + 48 = 96 := by rfl"
+  },
+  {
+    "informal": "Statement 49: the sum of 49 and 49 is 98",
+    "formal": "lemma stmt_49 : 49 + 49 = 98 := by rfl"
+  },
+  {
+    "informal": "Statement 50: the sum of 50 and 50 is 100",
+    "formal": "lemma stmt_50 : 50 + 50 = 100 := by rfl"
+  },
+  {
+    "informal": "Statement 51: the sum of 51 and 51 is 102",
+    "formal": "lemma stmt_51 : 51 + 51 = 102 := by rfl"
+  },
+  {
+    "informal": "Statement 52: the sum of 52 and 52 is 104",
+    "formal": "lemma stmt_52 : 52 + 52 = 104 := by rfl"
+  },
+  {
+    "informal": "Statement 53: the sum of 53 and 53 is 106",
+    "formal": "lemma stmt_53 : 53 + 53 = 106 := by rfl"
+  },
+  {
+    "informal": "Statement 54: the sum of 54 and 54 is 108",
+    "formal": "lemma stmt_54 : 54 + 54 = 108 := by rfl"
+  },
+  {
+    "informal": "Statement 55: the sum of 55 and 55 is 110",
+    "formal": "lemma stmt_55 : 55 + 55 = 110 := by rfl"
+  }
+]

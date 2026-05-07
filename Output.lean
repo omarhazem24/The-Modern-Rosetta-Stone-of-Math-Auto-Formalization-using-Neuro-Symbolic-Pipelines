@@ -1,4 +1,0 @@
-import Mathlib.Data.Set.Basic
-
-def intersection_contains {α : Type u} (A B : Set α) (x : α) (h : x ∈ A ∩ B) : x ∈ A ∧ x ∈ B :=
-  (Set.mem_inter_iff x A B).mp h

@@ -41,9 +41,9 @@ These metrics provide a reference point for evaluating the effectiveness of the 
 \section{Automated Translation Pipeline Execution (N=50 Dataset)}
 \label{sec:auto-results}
 
-Following the manual phase, the automated translation pipeline was expanded. By interfacing with multiple LLM APIs via the Python wrapper developed in Phase 4 (Methodology), an evaluation dataset of exactly 50 English mathematical propositions (\texttt{scripts/fix\_prompts.py}) was processed. 
+Following the manual phase, the automated translation pipeline was expanded. By interfacing with multiple LLM APIs via the Python wrapper developed in Phase 4 (Methodology), an evaluation dataset of exactly 50 English mathematical propositions (\texttt{scripts/fix\_prompts.py}) was processed.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \IfFileExists{img/Prompts.png}{
         \includegraphics[width=0.8\textwidth]{img/Prompts.png}
@@ -57,7 +57,7 @@ Following the manual phase, the automated translation pipeline was expanded. By 
 \subsection{Initial Translation Capabilities}
 The execution of the Python script confirmed the system's ability to act as the linguistic parsing tier of the "Truth Scanner." During initial trial passes, the script successfully received informal English inputs (e.g., \textit{"The union of two sets A and B contains all elements that are in A or in B."}) and translated them directly into Lean 4 \texttt{.lean} files.
 
-Early tests indicate that with the strict system prompts embedded in the wrapper module, the LLM outputs purely functional code without conversational filler or markdown wrappers, directly preparing the text for the compiler. Across the 50 prompts, the pre-validation step immediately escalated the final success rate averages—showing improvements across algebraic topology (from 65\% to 85\%) and graph theory (from 80\% to 92\%).
+Early tests indicate that with the strict system prompts embedded in the wrapper module, the LLM outputs purely functional code without conversational filler or markdown wrappers, directly preparing the text for the compiler. Across the 50 prompts, the pre-validation step immediately escalated the final success rate averages---showing improvements across algebraic topology (from 65\% to 85\%) and graph theory (from 80\% to 92\%).
 
 To document the behavior, the script was tested by querying it with the English definition of a \textit{Set Union}. The prompt and translation output processed by the GPT-4 model was recorded as follows:
 
@@ -84,7 +84,7 @@ For example, when the pipeline was fed a mathematically incorrect prompt:
 \begin{itemize}
     \item \textbf{Invalid Input:} \textit{"The intersection of two disjoint non-empty sets contains exactly one element."}
 \end{itemize}
-\textbf{Validator Output:} \texttt{Prompt REJECTED: NO. This statement is a mathematical hallucination. By definition, two disjoint sets have an empty intersection, so they cannot share exactly one element.} 
+\textbf{Validator Output:} \texttt{Prompt REJECTED: NO. This statement is a mathematical hallucination. By definition, two disjoint sets have an empty intersection, so they cannot share exactly one element.}
 
 This safeguard successfully aborted the translation, preventing the LLM from attempting to formally prove an inherently false claim.
 
@@ -103,7 +103,7 @@ variable {V : Type}
 
 def IsBipartite (G : SimpleGraph V) : Prop :=
   exists U W : Set V, Disjoint U W /\ U \cup W = Set.univ /\
-  forall e \in G.edgeSet, exists u \in U, exists w \in W, 
+  forall e \in G.edgeSet, exists u \in U, exists w \in W,
     s(e) = u /\ t(e) = w
 \end{verbatim}
 
@@ -113,7 +113,7 @@ While an initial pass hallucinated the edge indexing, the multi-agent consensus 
 When comparing the automated script's outputs against the manual baseline formalizations, the AI-generated snippets established several baseline metrics:
 \begin{itemize}
     \item \textbf{Syntactic Adherence}: The model successfully utilized \texttt{Mathlib} imports and mapped abstract symbols ($\cup, \cap, \rightarrow$) correctly to Lean's macro environment.
-    \item \textbf{Type Inference Hallucinations}: Despite the strict prompt engineering (demanding expressly typed bindings such as \texttt{\{x : $\alpha$ | ...\}}), the LLM still occasionally relapsed into "natural" math logic, writing untyped variables (e.g., \texttt{$\forall$ x} instead of \texttt{$\forall$ (x : $\alpha$)}). 
+    \item \textbf{Type Inference Hallucinations}: Despite the strict prompt engineering (demanding expressly typed bindings such as \texttt{\{x : $\alpha$ | ...\}}), the LLM still occasionally relapsed into "natural" math logic, writing untyped variables (e.g., \texttt{$\forall$ x} instead of \texttt{$\forall$ (x : $\alpha$)}).
 \end{itemize}
 
 Without human intervention, these subtle structural deviations caused the Lean compiler to immediately reject the code due to indeterminate universe structures. This outcome proves the core hypothesis of the thesis: an LLM alone cannot be fully trusted with mathematical rigor. The symbolic compiler is absolutely essential to catch these mathematically plausible but structurally incorrect translations.
@@ -121,7 +121,7 @@ Without human intervention, these subtle structural deviations caused the Lean c
 \subsection{Compilation and Verification in Lean}
 Figure \ref{fig:lean-screenshot} illustrates the Lean 4 VS Code interface for a successful formalization run, showing the strict environment where these definitions are type-checked.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \IfFileExists{img/lean_formalization_screenshot.png}{
         \includegraphics[width=0.65\textwidth]{img/lean_formalization_screenshot.png}
@@ -142,7 +142,7 @@ The integration of the iterative \textbf{Autonomous Repair Loop} successfully tr
 \subsection{Error Reduction and Iteration Metrics}
 By analyzing the empirical data collected during automated formalization attempts, several key benchmark metrics were established:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \IfFileExists{img/phase3_success_rates.png}{
         \includegraphics[width=0.7\textwidth]{img/phase3_success_rates.png}
@@ -152,9 +152,9 @@ By analyzing the empirical data collected during automated formalization attempt
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Repair Success Rate:} The LLM successfully repaired the logically sound but syntactically flawed theorems in roughly -92\%$ of the failed initial translations without human intervention.
-    \item \textbf{Average Iteration Depth:} For statements that were successfully repaired, the system reached a zero-error state on average between .2$ and .2$ iterations (depending on domain complexity). This demonstrates the model's high capability to decipher Lean 4 errors quickly, especially now that the dataset is triaged against logical impossibilities.
-    \item \textbf{Maximum Retry Bounding:} In the remaining subset of complex definitions, the model exhausted the maximum $ repair iterations. These statements were automatically redirected and logged into the \textbf{Manual Auto-Formalization Benchmark}, confirming the system's robustness against infinite divergence loops.
+    \item \textbf{Repair Success Rate:} The LLM successfully repaired the logically sound but syntactically flawed theorems in roughly $85-92\%$ of the failed initial translations without human intervention.
+    \item \textbf{Average Iteration Depth:} For statements that were successfully repaired, the system reached a zero-error state on average between $1.2$ and $4.2$ iterations (depending on domain complexity). This demonstrates the model's high capability to decipher Lean 4 errors quickly, especially now that the dataset is triaged against logical impossibilities.
+    \item \textbf{Maximum Retry Bounding:} In the remaining subset of complex definitions, the model exhausted the maximum $5$ repair iterations. These statements were automatically redirected and logged into the \textbf{Manual Auto-Formalization Benchmark}, confirming the system's robustness against infinite divergence loops.
 \end{itemize}
 
 \subsection{Proof-Trace Evaluation}
@@ -162,7 +162,7 @@ To explicitly demonstrate the rigor of the system, the following verbatim output
 
 \begin{verbatim}
 === Formal Proof-Trace ===
-Natural Language Input: The intersection of two sets A and B 
+Natural Language Input: The intersection of two sets A and B
 contains all elements that are in both A and B.
 
 Initial Lean Translation:
@@ -192,7 +192,7 @@ Iterations: 2 | Success: True | Autonomy Success Rate: 100.00%
 \subsection{Observed Fallacies and Hallucinations}
 The compiled metrics revealed structural weaknesses in the linguistic processing layer when forced into mathematical rigidity:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \IfFileExists{img/phase3_error_modes.png}{
         \includegraphics[width=0.7\textwidth]{img/phase3_error_modes.png}

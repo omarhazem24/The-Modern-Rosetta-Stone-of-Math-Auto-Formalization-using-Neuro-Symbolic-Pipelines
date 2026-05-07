@@ -1,7 +1,6 @@
 import os
 import time
 from llm_translator import multi_agent_consensus_and_repair
-
 PROMPTS = [
     "The intersection of sets A and B contains elements that are in both A and B.",
     "A function f from A to B is injective if and only if for all x and y in A, if f(x) equals f(y), then x equals y.",
@@ -52,7 +51,7 @@ PROMPTS = [
     "A polynomial of degree n over the complex numbers has exactly n roots counting multiplicities.",
     "The derivative of a constant function is zero.",
     "A cycle in a graph is a path that starts and ends at the same vertex.",
-    "The sum of the first n odd non-negative integers is n squared."
+    "The sum of the first n odd non-negative integers is n squared.",
 ]
 
 def run_evaluation():
@@ -64,8 +63,8 @@ def run_evaluation():
     total_prompts = len(PROMPTS)
     
     for idx, prompt_text in enumerate(PROMPTS, 1):
-        print("\n[" + str(idx) + "/" + str(total_prompts) + "] Testing Prompt: '" + prompt_text + "'")
-        output_file = "Output_" + str(idx) + ".lean"
+        print(f"\n[{idx}/{total_prompts}] Testing Prompt: '{prompt_text}'")
+        output_file = f"Output_{idx}.lean"
         
         try:
             start_time = time.time()
@@ -80,10 +79,10 @@ def run_evaluation():
             })
             
             status = "PASSED" if success else "FAILED"
-            print(">>> Result: " + status + " in " + str(iterations) + " iterations (" + str(round(elapsed_time, 1)) + "s)")
+            print(f">>> Result: {status} in {iterations} iterations ({elapsed_time:.1f}s)")
             
         except Exception as e:
-            print(">>> Error evaluating prompt " + str(idx) + ": " + str(e))
+            print(f">>> Error evaluating prompt {idx}: {e}")
             results.append({
                 "prompt": prompt_text,
                 "success": False,
@@ -101,12 +100,12 @@ def run_evaluation():
     avg_iterations_success = sum(r["iterations"] for r in successful_runs) / len(successful_runs) if successful_runs else 0
     avg_time = sum(r["time"] for r in results) / len(results) if results else 0
     
-    print("Total Prompts Tested: " + str(total_prompts))
-    print("Overall Success Rate: " + str(round(success_rate, 1)) + "%")
-    print("Average Execution Time per Prompt: " + str(round(avg_time, 1)) + "s")
+    print(f"Total Prompts Tested: {total_prompts}")
+    print(f"Overall Success Rate: {success_rate:.1f}%")
+    print(f"Average Execution Time per Prompt: {avg_time:.1f}s")
     
     print("\n--- Repair Loop Effectiveness ---")
-    print("Average Fix Iterations (successful runs): " + str(round(avg_iterations_success, 1)))
+    print(f"Average Fix Iterations (successful runs): {avg_iterations_success:.1f}")
     if avg_iterations_success == 1:
         print("Effectiveness: Excellent. Most prompts were translated correctly on the first try or required no cyclic repairs.")
     elif 1 < avg_iterations_success <= 5:
@@ -118,9 +117,9 @@ def run_evaluation():
 
     print("\n--- Benchmark Detail ---")
     for idx, r in enumerate(results, 1):
-        mark = "[OK]" if r["success"] else "[X]"
-        print(mark + " Prompt " + str(idx) + ": " + str(r['iterations']) + " iterations | " + str(round(r['time'], 1)) + "s")
-        print("     '" + r['prompt'][:60] + "...'")
+        mark = "✓" if r["success"] else "✗"
+        print(f"[{mark}] Prompt {idx}: {r['iterations']} iterations | {r['time']:.1f}s")
+        print(f"     \"{r['prompt'][:60]}...\"")
 
 if __name__ == "__main__":
     run_evaluation()

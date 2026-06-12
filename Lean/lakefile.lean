@@ -8,3 +8,4 @@ require mathlib from git
 
 @[default_target]
 lean_lib Definitions
+lean_lib Theorems

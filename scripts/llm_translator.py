@@ -255,57 +255,68 @@ def get_llama_repair(lean_code: str, critique: str, compiler_error: str) -> str:
 
 def validate_prompt_logic(english_text: str) -> tuple[bool, str]:
     """
-    Validates if the input text is a math prompt.
-    Uses basic heuristics first, then a very small, fast model for validation.
+    Validates if the input text is a meaningful math prompt.
+    Uses AI validation to filter out gibberish, greetings, and non-math prose.
     """
-    clean_text = english_text.lower().strip()
+    clean_text = english_text.strip()
+    if not clean_text or len(clean_text) < 3:
+        return False, "Input too short or empty."
 
-    # 1. Fast Heuristic Check: Keywords often found in math prompts
-    math_keywords = ["let ", "define ", "theorem", "prove ", "graph", "set ", "function", "limit", "subset", "disjoint", "is a ", "if "]
-    is_mathematical_start = any(clean_text.startswith(kw) for kw in math_keywords)
+    # 1. Immediate local check for nonsense or common greetings
+    greetings = ["hello", "hi", "hey", "test", "how are you", "what is your name", "tell me a joke"]
+    if clean_text.lower().strip("?!. ") in greetings:
+        return False, "Input is a greeting or general prose."
     
-    # Common non-math greetings/prose
-    greetings = ["hello", "hi", "test", "how are you", "what is your name", "hey"]
-    if clean_text in greetings:
-        return False, "Input is a greeting."
+    # Simple gibberish check (no spaces and long)
+    if " " not in clean_text and len(clean_text) > 15:
+        return False, "Input appears to be gibberish (single long word)."
 
-    # If it clearly looks like a theorem or definition, skip the LLM check to save time
-    if len(clean_text.split()) > 5 and is_mathematical_start:
-        return True, "Passed heuristic math check."
-
-    print("\n[Validator] Analyzing mathematical validity of the prompt...")
+    print("\n[Validator] Verifying if prompt is mathematical...")
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-             return False, "GEMINI_API_KEY is missing."
+             print("Validator Warning: GEMINI_API_KEY missing, skipping safety check.")
+             return True, "Skipped AI check (no key)."
              
-        # Reverting to gemini-2.5-flash as per user API key requirements
         client = openai.OpenAI(api_key=api_key, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
-        prompt = (
-            f"Is this input a math statement? '{english_text}'\n"
-            "Return JSON: {\"is_valid\": bool, \"explanation\": \"short reason\"}"
-        )
-        r = client.chat.completions.create(
-            model="gemini-2.5-flash",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=50,
-            temperature=0.0)
-        # Use gpt-4o-mini or similar if using OpenAI, but since we are using Gemini endpoint:
-        # gemini-2.5-flash is the standard naming.
-        r = client.chat.completions.create(
-            model="gemini-2.5-flash",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0)
         
-        text = re.sub(r"```json\n?|```", "", r.choices[0].message.content).strip()
-        res = json.loads(text)
-        return bool(res.get("is_valid")), res.get("explanation", "No explanation provided.")
+        # We use a very strict prompt for the validator
+        # Asking for specific strings is often more reliable than JSON for low-latency models
+        prompt = (
+            "You are a math verification agent. Is the following input a mathematical concept, theorem, definition, or logical statement?\n"
+            "NOTE: Accept the input EVEN IF the mathematical claim is FALSE (e.g., '1+1=3'). We only reject gibberish, random letters, profanity, or non-math chat.\n"
+            "Input: '" + english_text + "'\n\n"
+            "Respond ONLY with 'VALID' or 'INVALID' followed by a short reason."
+        )
+        
+        r = client.chat.completions.create(
+            model="gemini-2.5-flash",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=100,
+            temperature=0.0,
+            timeout=10.0
+        )
+        
+        raw_content = r.choices[0].message.content.strip()
+        
+        if raw_content.upper().startswith("VALID"):
+            is_valid = True
+            explanation = raw_content[5:].strip(": ") or "Meaningful math prompt."
+            print(f"[Validator] Accepted: {explanation}")
+        else:
+            is_valid = False
+            explanation = raw_content[7:].strip(": ") or "Not a recognized math prompt."
+            print(f"[Validator] Rejected: {explanation}")
+            
+        return is_valid, explanation
+
     except Exception as e:
-        print(f"Validator Warning: {e}")
-        # If it's a known non-math input and the API fails, we should still fail.
-        # But if the prompt is complex and just the API failed, we might want to allow it?
-        # Actually, user wants it to STOP the command.
-        return False, f"Validation failed to execute: {e}"
+        print(f"Validator Error: {e}")
+        # If the AI check fails due to technical reasons, we only allow it if it looks like math
+        math_indicators = ["let", "define", "theorem", "prove", "graph", "set", "function", "limit"]
+        if any(indicator in clean_text.lower() for indicator in math_indicators):
+            return True, "Technical failure, but looks like math."
+        return False, f"Could not verify input: {e}"
 
 
 def write_lean_file(path: str, code: str) -> None:
